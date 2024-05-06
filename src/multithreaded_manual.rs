@@ -101,21 +101,7 @@ pub fn brc(file_path: &str) -> Result<()> {
 
     let mut weather_stations: Vec<(&[u8], Measurement)> = weather_stations.into_iter().collect();
     weather_stations.sort_by_key(| item | item.0);
-
-    let mut weather_iter = weather_stations.into_iter();
-    let (first_station, first_weather) = weather_iter.next().unwrap();
-    let first_station = std::str::from_utf8(first_station)?;
-
-    let stdout = std::io::stdout();
-    let mut lock = stdout.lock();
-
-    write!(lock, "{{")?;
-    write!(lock, "{first_station}={first_weather}")?;
-    for (station, weather) in  weather_iter {
-        let station = std::str::from_utf8(station)?;
-        write!(lock, ", {station}={weather}")?;
-    }
-    writeln!(lock, "}}")?;
+    write_output(weather_stations)?;
     Ok(())
 }
 
@@ -179,4 +165,22 @@ fn merge<'a>(
         .for_each(
             | (key, value) | map_one.entry(key).or_default().merge(value)
         );
+}
+
+fn write_output(weather_stations: Vec<(&[u8], Measurement)>) -> Result<()> {
+    let mut weather_iter = weather_stations.into_iter();
+    let (first_station, first_weather) = weather_iter.next().unwrap();
+    let first_station = std::str::from_utf8(first_station)?;
+
+    let stdout = std::io::stdout();
+    let mut lock = stdout.lock();
+
+    write!(lock, "{{")?;
+    write!(lock, "{first_station}={first_weather}")?;
+    for (station, weather) in  weather_iter {
+        let station = std::str::from_utf8(station)?;
+        write!(lock, ", {station}={weather}")?;
+    }
+    writeln!(lock, "}}")?;
+    Ok(())
 }

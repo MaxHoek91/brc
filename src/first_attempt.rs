@@ -23,18 +23,18 @@ impl Measurement {
 }
 
 
-pub fn brc(file: &str) {
-    let data: String = fs::read_to_string(file).expect("Could not read the file");
+pub fn brc(file_path: &str) {
+    let data: String = fs::read_to_string(file_path).expect("Could not read the file");
     
     let mut weather_stations: HashMap<&str, Measurement> = HashMap::new();
     
     for line in data.lines() {
-        let (location, measurement) = match line.split_once(';') {
+        let (location, temperature) = match line.split_once(';') {
             Some((loc, val)) => (loc, val),
             None => continue
         };
         
-        let measurement_value: f32 = measurement.parse().unwrap();
+        let measurement_value: f32 = temperature.parse().unwrap();
         weather_stations
             .entry(location)
             .or_insert(Measurement::new())
@@ -43,7 +43,6 @@ pub fn brc(file: &str) {
     
     let mut weather_stations: Vec<(&str, Measurement)> = weather_stations.into_iter().collect();
     weather_stations.sort_by_key(| item | item.0);
-
     
     let mut weather_iter = weather_stations.into_iter();
     

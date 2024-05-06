@@ -35,8 +35,8 @@ impl Display for Measurement {
 }
 
 
-pub fn brc(file: &str) -> Result<()> {
-    let data: String = fs::read_to_string(file)?;
+pub fn brc(file_path: &str) -> Result<()> {
+    let data: String = fs::read_to_string(file_path)?;
     
     let mut weather_stations: HashMap<&str, Measurement> = HashMap::new();
     
