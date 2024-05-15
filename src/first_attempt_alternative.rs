@@ -1,3 +1,4 @@
+use std::collections::BTreeMap;
 use std::fmt::{Display, Formatter};
 use std::fs;
 use std::io::Write;
@@ -51,8 +52,7 @@ pub fn brc(file_path: &str) -> Result<()> {
             }
         );
 
-    let mut weather_stations: Vec<(&str, Measurement)> = weather_stations.into_iter().collect();
-    weather_stations.sort_by_key(| item | item.0);
+    let weather_stations: BTreeMap<&str, Measurement> = weather_stations.into_iter().collect();
     
     let mut weather_iter = weather_stations.into_iter();
     let (first_station, first_weather) = weather_iter.next().unwrap();
