@@ -8,6 +8,7 @@ mod improved_file_read;
 mod multithreaded_rayon;
 mod multithreaded_manual;
 mod prototyping;
+mod chunked_reading;
 
 
 fn main() {
@@ -16,11 +17,12 @@ fn main() {
     
     let timer = Instant::now();
     // first_attempt::brc(input_file);
-    first_attempt_alternative::brc(input_file);
+    // first_attempt_alternative::brc(input_file);
     // first_attemp_vec::brc(input_file).unwrap();
     // improved_file_read::brc(input_file);
     // multithreaded_manual::brc(input_file).unwrap();
     // multithreaded_rayon::brc(input_file).unwrap();
+    chunked_reading::brc(input_file).unwrap();
     // prototyping::brc(input_file).unwrap();
     println!("\n{:?}", timer.elapsed());
 }
