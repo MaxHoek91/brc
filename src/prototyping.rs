@@ -155,7 +155,7 @@ fn scan_ascii_chunk(buffer: &[u8], end: usize, measurements: &mut MeasurementsMa
             SEMICOLON => name_end = position,
             NEWLINE => {
                 let station_name = &buffer[line_start..name_end];
-                let value = parse_ascii_to_int(&buffer[(name_end + 1)..=position]);
+                let value = parse_ascii_to_int(&buffer[(name_end + 1)..position]);
 
                 line_start = position + 1;
                 
@@ -193,7 +193,7 @@ fn parse_ascii_to_int(buffer: &[u8]) -> i32 {
 fn write_output(weather_stations: BTreeMap<Box<[u8]>, Measurement>) -> Result<()> {
     let mut weather_iter = weather_stations.into_iter();
     let (first_station, first_weather) = weather_iter.next().unwrap();
-    let first_station = str::from_utf8(&*first_station)?;
+    let first_station = str::from_utf8(&first_station)?;
 
     let stdout = std::io::stdout();
     let mut lock = stdout.lock();
@@ -201,7 +201,7 @@ fn write_output(weather_stations: BTreeMap<Box<[u8]>, Measurement>) -> Result<()
     write!(lock, "{{")?;
     write!(lock, "{first_station}={first_weather}")?;
     for (station, weather) in  weather_iter {
-        let station = str::from_utf8(&*station)?;
+        let station = str::from_utf8(&station)?;
         write!(lock, ", {station}={weather}")?;
     }
     writeln!(lock, "}}")?;

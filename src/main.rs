@@ -3,7 +3,7 @@ use std::time::Instant;
 
 mod first_attempt;
 mod first_attempt_alternative;
-mod first_attemp_vec;
+mod first_attempt_vec;
 mod improved_file_read;
 mod multithreaded_rayon;
 mod multithreaded_manual;
@@ -13,7 +13,7 @@ mod chunked_reading;
 
 fn main() {
     let input_file = "C:/Users/Max/Downloads/1brc-main/data/measurements_small.txt";
-    // let input_file = "C:/Users/Max/Downloads/1brc-main/data/measurements.txt";
+    let input_file = "C:/Users/Max/Downloads/1brc-main/data/measurements.txt";
     
     let timer = Instant::now();
     // first_attempt::brc(input_file);
