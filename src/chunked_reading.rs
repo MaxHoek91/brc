@@ -13,7 +13,7 @@ use rayon::prelude::*;
 type MeasurementsMap = HashMap<Box<[u8]>, Measurement, RandomState>;
 type SortedMeasurements = BTreeMap<Box<[u8]>, Measurement>;
 
-const CHUNK_SIZE: usize = 1000 * 1000;
+const CHUNK_SIZE: usize = 1024 * 1024;
 const NEWLINE: u8 = 10;
 const SEMICOLON: u8 = 59;
 const MINUS: u8 = 45;

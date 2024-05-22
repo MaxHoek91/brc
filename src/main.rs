@@ -9,10 +9,11 @@ mod multithreaded_rayon;
 mod multithreaded_manual;
 mod prototyping;
 mod chunked_reading;
+mod multithreaded_single_map;
 
 
 fn main() {
-    let input_file = "C:/Users/Max/Downloads/1brc-main/data/measurements_small.txt";
+    // let input_file = "C:/Users/Max/Downloads/1brc-main/data/measurements_small.txt";
     let input_file = "C:/Users/Max/Downloads/1brc-main/data/measurements.txt";
     
     let timer = Instant::now();
@@ -21,8 +22,9 @@ fn main() {
     // first_attemp_vec::brc(input_file).unwrap();
     // improved_file_read::brc(input_file);
     // multithreaded_manual::brc(input_file).unwrap();
-    // multithreaded_rayon::brc(input_file).unwrap();
-    chunked_reading::brc(input_file).unwrap();
+    multithreaded_rayon::brc(input_file).unwrap();
+    // chunked_reading::brc(input_file).unwrap();
+    // multithreaded_single_map::brc(input_file).unwrap();
     // prototyping::brc(input_file).unwrap();
     println!("\n{:?}", timer.elapsed());
 }
